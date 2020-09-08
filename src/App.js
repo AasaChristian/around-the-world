@@ -1,24 +1,33 @@
-import React from 'react';
+import React, {useState ,useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import DashBoard from './components/dashboard';
 
 function App() {
+  const [cData, setCData] = useState([])
+
+  useEffect(() => {
+    axios
+    .get('https://restcountries-v1.p.rapidapi.com/all')
+    .then(res => {
+      console.log(res.data)
+      setCData(res.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  },[])
+
+  console.log(cData, "cData")
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {cData.map(countries => (
+        <DashBoard
+        name ={countries.name}
+        key = {countries.area}
+        />
+      ))}
     </div>
   );
 }
