@@ -1,15 +1,12 @@
-import React from 'react';
-
+import React, {useEffect} from 'react';
 
 const InfoCard = props => {
 
     return(
         <div key = {props.key}>
             <p>{props.name}</p>
-        </div>
-        
-        
-        
+            
+        </div>       
     )
 }
 export default InfoCard
